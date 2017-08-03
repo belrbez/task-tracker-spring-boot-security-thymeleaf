@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html"/>
+    <title>Login</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <style th:inline="text">
+        body {
+            padding-top: 15px;
+            font-size: 12px
+        }
+
+        .main {
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .login-or {
+            position: relative;
+            font-size: 18px;
+            color: #aaa;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .span-or {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: -2px;
+            margin-left: -25px;
+            background-color: #fff;
+            width: 50px;
+            text-align: center;
+        }
+        .hr-or {
+            background-color: #cdcdcd;
+            height: 1px;
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+        }
+        h3 {
+            text-align: center;
+            line-height: 300%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"> </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="container">
+
+        <div class="alert alert-success" align="center" th:if="${logout != null}">
+            <p style="font-size: 20px">Вы успешно вышли</p>
+        </div>
+
+        <div class="container">
+            <div class="main row">
+                <h3>Войдите, или <a th:href="@{/register}"> Зарегистрируйтесь</a></h3>
+                <!--<div class="row">-->
+                    <!--<div class="col-xs-6 col-sm-6 col-md-6">-->
+                        <!--<a href="#" class="btn btn-lg btn-primary btn-block">VK</a>-->
+                    <!--</div>-->
+                    <!--<div class="col-xs-6 col-sm-6 col-md-6">-->
+                        <!--<a href="#" class="btn btn-lg btn-info btn-block">Google</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="login-or">
+                    <hr class="hr-or">
+                    <span class="span-or">Или</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <form th:action="@{/login}" method="POST" class="form-login">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="email_input">Введите Email или Login</label>
+                            <input id="email_input" class="form-control" type="text" name="email" placeholder="Email/Login"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_input">Введите пароль</label>
+                            <input id="password_input" class="form-control" type="password" name="password" placeholder="Пароль"/>
+                        </div>
+                        <div class="checkbox pull-right">
+                            <input id="remember" type="checkbox">
+                            <label for="remember"> Запомнить </label>
+                        </div>
+
+                        <button type="Submit" class="btn btn btn-primary">
+                            Войти
+                        </button>
+
+                    </div>
+
+                    <div class="alert alert-danger" th:if="${error != null}">
+                        <span>
+                            Email или пароль, не соответствуют
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

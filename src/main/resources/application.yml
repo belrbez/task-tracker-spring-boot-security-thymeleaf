@@ -1,0 +1,71 @@
+server:
+    port: 8084
+
+hibernate:
+  ddl-auto: validate
+  dialect: org.hibernate.dialect.PostgreSQL9Dialect
+  format_sql: true
+  show_sql: true
+  hbm2ddl:
+    auto: update
+
+db:
+  driver: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:19009/postgres
+  username: postgres
+  password: 20081062
+  initialSize: 30
+  minIdle: 30
+  maxIdle: 60
+  timeBetweenEvictionRunsMillis: 30000
+  minEvictableIdleTimeMillis: 60000
+  testOnBorrow: true
+  validationQuery: select version()
+  entity:
+    package: com.devtrustcorp.company_demo.model
+
+
+spring:
+  jpa:
+    ddl-auto: validate
+    dialect: org.hibernate.dialect.PostgreSQL9Dialect
+    format_sql: true
+    show_sql: true
+    database: postgresql
+    initialSize: 30
+    minIdle: 30
+    maxIdle: 60
+    timeBetweenEvictionRunsMillis: 30000
+    minEvictableIdleTimeMillis: 60000
+    testOnBorrow: true
+    validationQuery: select version()
+
+
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:19009/postgres
+    username: postgres
+    password: 20081062
+    platform: postgres
+    continue-on-error: true
+#    dbcp2:
+#      driver-class-name: org.postgresql.Driver
+
+  resources:
+    static-locations: classpath:/resources/static/**, classpath:/META-INF/resources/, classpath:/META-INF/resources/webjars/
+
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+# To make actuator response readable
+#  jackson:
+#    serialization:
+#      indent_output: true
+#      write_dates_as_timestamps: false
+
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+
+  mvc:
+    date-format: yyyy/MM/dd
+logging:
+  level: error

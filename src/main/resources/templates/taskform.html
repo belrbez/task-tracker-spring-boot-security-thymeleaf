@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html"/>
+    <title>Task</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <style th:inline="text">
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,100italic,100,300,300italic,900italic,900,700,700italic,500italic,500,400italic);
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .post-title-block h1 {
+            color: #fff;
+            font-size: 85px;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .post-title-block li {
+            font-size:20px;
+            color: #fff;
+        }
+
+        .footer-link a {
+            color:#A9FD00;
+            font-size:18px;
+            text-transform:uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <div th:replace="fragments/header :: header"> </div>
+
+    <br/> <br/>
+
+    <div>
+        <!--MAP-->
+        <!--<div th:replace="fragments/map_form :: map_form"> </div>-->
+
+        <!--<script async type="text/javascript"-->
+                <!--charset="utf-8"-->
+                <!--src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ae3b1f950de0f339053e45628ae9e3add9b7f89c5a81c896874d58b7202aacbfd&amp;width=100%25&amp;height=220&amp;lang=ru_RU&amp;scroll=true">-->
+        <!--</script>-->
+    </div>
+
+    <div th:object="${task}" class="col-lg-12 col-md-12 col-sm-12">
+        <div th:if="${task.id}!=null">
+            <ul class="list-inline text-center">
+                <li th:if="${task.id} != 0">
+                    <form th:action="@{'/secure/task/' + ${task.id}}" th:method="DELETE"
+                          style="padding: 5px">
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <button class="btn btn-danger" type="Submit">
+                            Удалить
+                        </button>
+                    </form>
+                </li>
+
+                <li th:if="${task.id} != 0">
+                    <form th:action=" ${task.id} != null ? @{'/secure/task/'+ ${task.id}} : @{'/secure/map/'} " method="GET"
+                          style="padding: 5px">
+                        <button class="btn btn-warning" type="Submit">
+                            Отменить
+                        </button>
+                    </form>
+                </li>
+
+
+
+                <li th:if="${task.id} == 0">
+                    <form th:action="@{'/secure/feed'}" method="GET"
+                          style="padding: 5px">
+                        <button class="btn btn-warning" type="Submit">
+                            Отменить
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <!--<div>
+            <div class="col-md-12 post-header-line" style="padding-top: 5px">
+                <span class="glyphicon glyphicon-calendar"></span><span th:text="${task.getPrettyCreateDate()}"></span>  |
+                <span class="glyphicon glyphicon-edit"></span><span th:text="${task.getPrettyLastModifyDate()}"></span>  |
+                <span th:if="${!task.tags.isEmpty()}">
+                    <span class="glyphicon glyphicon-tags"></span> Tags :
+                    <span th:each="tag : ${task?.tags}">
+                            <span class="label label-info"> <span th:text="${tag?.tag}"></span> </span>
+                    </span>
+                </span>
+            </div>
+        </div>-->
+
+        <div>
+            <form autocomplete="off" th:action="@{/secure/task/form}"
+                  th:object="${task}" method="post" class="form-horizontal" role="form">
+
+                <input type="hidden" th:field="${task.id}" />
+                <input type="hidden" th:field="${task.topicStarterId}" />
+
+                <!--<input type="hidden" th:field="*{latitude}" placeholder="Latitude" class="form-control" />-->
+                <!--<input type="hidden" th:field="*{longitude}" placeholder="Longitude" class="form-control" />-->
+                <!--<input type="hidden" th:field="*{radius}" placeholder="Radius" class="form-control" />-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="theme_input">Название</label>
+                    <div class="col-md-4">
+                        <input id="theme_input" type="text" th:field="*{theme}"
+                               placeholder="Название" class="form-control" />
+
+                        <span class="help-block">
+                            <label th:if="${#fields.hasErrors('theme')}" th:errors="*{theme}" class="validation-message"></label>
+                        </span>
+                    </div>
+                </div>
+
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-4 control-label" for="tag_input">Tags</label>-->
+                    <!--<div class="col-md-4">-->
+                        <!--<input id="tag_input" type="text" th:field="*{descr}"-->
+                               <!--placeholder="Tags" class="form-control" />-->
+
+                        <!--<span class="help-block">-->
+                            <!--<label th:if="${#fields.hasErrors('tags')}" th:errors="*{descr}" class="validation-message"></label>-->
+                        <!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="descr_input">Описание</label>
+                    <div class="col-md-4">
+                        <textarea id="descr_input" th:field="*{descr}"
+                                  placeholder="Описание" class="form-control" rows="4"></textarea>
+
+                        <span class="help-block">
+                            <label th:if="${#fields.hasErrors('descr')}" th:errors="*{descr}" class="validation-message"></label>
+                        </span>
+                    </div>
+                </div>
+
+                <!--<div class="form-group">
+                    <label class="col-md-4 control-label" for="theme_input">Радиус</label>
+                    <div class="col-md-4">
+                        <input id="radius_input" type="number" th:field="*{radius}"
+                               placeholder="Радиус" class="form-control" />
+
+                        <span class="help-block">
+                            <label th:if="${#fields.hasErrors('radius')}" th:errors="*{radius}" class="validation-message"></label>
+                        </span>
+                    </div>
+                </div>-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="button_input"></label>
+                    <div class="col-md-4">
+                            <span class="help-block">
+                                <span th:utext="${successMessage}"></span>
+                            </span>
+                        <button id="button_input" class="btn btn-success" type="submit">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="alert alert-warning" th:if="${message} != null">
+                <span th:utext="${message}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

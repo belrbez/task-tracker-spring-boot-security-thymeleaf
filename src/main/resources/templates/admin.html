@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/app.css}"></link>
+</head>
+<body>
+    <div class="generic-container">
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading"><span class="lead">List of Users </span></div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                    <th>SSO ID</th>
+                    <th>STATE</th>
+                    <th>TYPE</th>
+                    <th>ROLE</th>
+
+                    <th width="100"></th>
+                    <th width="100"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.ssoId}"></td>
+                        <td th:text="${user.state}"></td>
+                        <td th:text="${user.userProfileType}"></td>
+                        <td th:text="${user.employeeRole}"></td>
+
+                        <td><a th:href="@{/editUser/${user.id}}" class="btn btn-success custom-width">edit</a></td>
+                        <td><a th:href="@{/deleteUser/${user.id}}" class="btn btn-danger custom-width">delete</a></td>
+                    </tr>
+                    <tr th:if="${new_user}!=null">
+                        <form autocomplete="off" th:action="@{/secure/profile}"
+                              th:object="${new_user}" method="post" class="form-horizontal" role="form">
+
+                            <td>
+                                <div class="col-md-4">
+                                    <input id="theme_input" type="text" th:field="*{firstName}"
+                                           placeholder="Имя" class="form-control" />
+
+                                    <span class="help-block">
+                                        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="validation-message"></label>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-4">
+                                    <input id="lastName_input" class="form-control input-md" type="text" th:field="*{lastName}"
+                                           placeholder="Введите фамилию"/>
+                                    <span class="help-block">
+                                        <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                               class="validation-message"></label>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-4">
+                                    <input id="email_input" class="form-control input-md" type="text" th:field="*{email}"
+                                           placeholder="Email" />
+
+                                    <span class="help-block">
+                                        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                               class="validation-message"></label>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-4">
+                                    <input id="name_input" class="form-control input-md" type="text" th:field="*{ssoId}"
+                                           placeholder="Ваш Логин" />
+
+                                    <span class="help-block">
+                                        <label th:if="${#fields.hasErrors('ssoId')}" th:errors="*{ssoId}"
+                                               class="validation-message"></label>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-4">
+                                    <input id="state_input" class="form-control input-md" type="text" th:field="*{state}"
+                                           placeholder="Введите cjcnjzybt"/>
+                                    <span class="help-block">
+                                        <label th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+                                               class="validation-message"></label>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-4">
+                                    <input id="userProfileType_input" class="form-control input-md" type="text" th:field="*{userProfileType}"
+                                           placeholder="Введите тип профиля"/>
+                                    <span class="help-block">
+                                        <label th:if="${#fields.hasErrors('userProfileType')}" th:errors="*{userProfileType}"
+                                               class="validation-message"></label>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-4">
+                                    <input id="employeeRole_input" class="form-control input-md" type="text" th:field="*{employeeRole}"
+                                           placeholder="Введите тип работника"/>
+                                    <span class="help-block">
+                                        <label th:if="${#fields.hasErrors('employeeRole')}" th:errors="*{employeeRole}"
+                                               class="validation-message"></label>
+                                    </span>
+                                </div>
+                            </td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="well">
+            <a th:href="@{/admin/newUser}">Add New User</a>
+        </div>
+    </div>
+</body>
+</html>

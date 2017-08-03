@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html"/>
+    <title>Register</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"> </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="container">
+        <div class="row">
+            <form class="form-horizontal" autocomplete="off" th:action="@{/register}"
+                  th:object="${user}" method="POST" role="form">
+
+                <div class="row">
+                    <div class="main">
+                        <h3>Зарегистрируйтесь, или <a th:href="@{/login}">Войдите</a></h3>
+                    </div>
+                </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="name_input">Логин</label>
+                        <div class="col-md-4">
+                            <input id="name_input" class="form-control input-md" type="text" th:field="*{ssoId}"
+                                   placeholder="Ваш логин" />
+
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('ssoId')}" th:errors="*{ssoId}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="email_input">Email</label>
+                        <div class="col-md-4">
+                            <input id="email_input" class="form-control input-md" type="text" th:field="*{email}"
+                                   placeholder="Ваш Email" />
+
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="pass_input">Пароль</label>
+                        <div class="col-md-4">
+                            <input id="pass_input" class="form-control input-md" type="password" th:field="*{password}"
+                                   placeholder="Ваш пароль"/>
+
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="button_input"></label>
+                        <div class="col-md-4">
+
+                            <span class="help-block">
+                                <span th:utext="${successMessage}"></span>
+                            </span>
+                            <button id="button_input" class="btn btn-primary" type="submit">Зарегистрироваться</button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

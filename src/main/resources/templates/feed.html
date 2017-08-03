@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8" content="text/html"/>
+    <title>Feed</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <style th:inline="text">
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,100italic,100,300,300italic,900italic,900,700,700italic,500italic,500,400italic);
+
+        body {
+
+        }
+
+        input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        label {
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding-left: 30px;
+            padding-right: 10px;
+            line-height: 36px;
+            cursor: pointer;
+        }
+
+        label::before {
+            content: " ";
+            position: absolute;
+            top: 6px;
+            left: 0;
+            display: block;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #0094BC;
+            border-radius: 4px;
+            z-index: -1;
+        }
+
+        input[type="radio"] + label::before {
+            border-radius: 18px;
+        }
+
+        /* Checked */
+        input[type="radio"]:checked + label {
+            padding-left: 10px;
+            color: #fff;
+        }
+
+        input[type="radio"]:checked + label::before {
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #0094BC;
+        }
+
+        /* Transition */
+        label,
+        label::before {
+            -webkit-transition: .25s all ease;
+            transition: .25s all ease;
+        }
+
+        <!-- -->
+
+        .button {
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #0094BC;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            padding: 5px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        .badge-notify {
+            background:red;
+            position:relative;
+            top: -20px;
+            left: -35px;
+        }
+
+        .publicaciones-blog-home {
+            padding-bottom: 50px;
+            background: url("") no-repeat fixed center center;
+            background-size: 100% auto;
+            background-color: #f1f1f1;
+        }
+        .publicaciones-blog-home h2 {
+            text-align: center;
+            font-weight: 300;
+            margin-bottom: 30px;
+            font-size: 44px;
+            margin-top: 10px;
+        }
+        .publicaciones-blog-home h2 b {
+            color: #2BBCDE;
+        }
+        .publicaciones-blog-home .fondo-publicacion-home {
+            background: #ffffff;
+            border-radius: 3px;
+            overflow: hidden;
+            height: 160px;
+            margin-bottom: 20px;
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home:hover h3 {
+            color: #2BBCDE;
+            /*    box-shadow: 0px 4px 3px 3px rgba(0, 0, 0, 0.08);*/
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home:hover .mascara-enlace-blog-home {
+            height: 160px;
+            width: 100%;
+            color: #aaa;
+            background-color: #2BBCDE;
+            position: absolute;
+            top: 0;
+            opacity: 0.95;
+            -webkit-transition: all 0.4s ease-out 0s;
+            -o-transition: all 0.4s ease-out 0s;
+            transition: all 0.4s ease-out 0s;
+        }
+
+        .publicaciones-blog-home .black {
+            background: #2BBCDE;
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home .img-publicacion-principal-home {
+            display: inline-block;
+            width: 50%;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home .img-publicacion-principal-home img {
+            height: 40px;
+            width: auto;
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home .contenido-publicacion-principal-home {
+            display: inline-block;
+            vertical-align: top;
+            width: 49%;
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home .contenido-publicacion-principal-home h3 {
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 30px;
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home .contenido-publicacion-principal-home p {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home .contenido-publicacion-home {
+            padding: 0 10px;
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home .contenido-publicacion-home h3 {
+            font-weight: 900;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .publicaciones-blog-home .fondo-publicacion-home .img-publicacion-home  {
+            overflow: hidden;
+            max-height: 180px;
+        }
+
+        .mascara-enlace-blog-home {
+            height: 160px;
+            width: 0%;
+            color: #aaa;
+            background-color: #2BBCDE;
+            position: absolute;
+            top: 0;
+            opacity: 0.0;
+            -webkit-transition: all 0.4s ease-out 0s;
+            -o-transition: all 0.4s ease-out 0s;
+            transition: all 0.4s ease-out 0s;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .mascara-enlace-blog-home span {
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        .publicaciones-blog-home .todas-las-publicaciones-home {
+            background: #2BBCDE;
+            height: 160px;
+            width: 100%;
+            display: inline-block;
+            padding: 20px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .publicaciones-blog-home .todas-las-publicaciones-home span {
+            color: #fff;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 25px;
+            line-height: 26px;
+        }
+
+        @media (max-width: 768px) {
+            .publicaciones-blog-home h2 {
+                text-align: center;
+                font-weight: 300;
+                margin-bottom: 30px;
+                font-size: 34px;
+                margin-top: 40px;
+            }
+            .publicaciones-blog-home .fondo-publicacion-home {
+                background: #ffffff;
+                border-radius: 3px;
+                overflow: hidden;
+                height: inherit;
+                margin-bottom: 20px;
+                display: block;
+                color: inherit;
+                text-decoration: none;
+                position: relative;
+            }
+            .publicaciones-blog-home .fondo-publicacion-home .img-publicacion-principal-home {
+                display: inline-block;
+                width: 100%;
+                overflow: hidden;
+                height: auto;
+            }
+            .publicaciones-blog-home .fondo-publicacion-home .img-publicacion-principal-home img {
+                height: auto;
+                width: 100%;
+            }
+            .publicaciones-blog-home .black {
+                background: #fff;
+            }
+            .publicaciones-blog-home .fondo-publicacion-home .contenido-publicacion-principal-home {
+                display: inline-block;
+                vertical-align: top;
+                width: 100%;
+                padding: 0 10px;
+            }
+            .publicaciones-blog-home .fondo-publicacion-home .contenido-publicacion-principal-home h3 {
+                font-weight: 900;
+                color: #333;
+                text-transform: uppercase;
+                font-size: 20px;
+            }
+            .publicaciones-blog-home .fondo-publicacion-home .contenido-publicacion-principal-home p {
+                color: #333;
+                font-size: 14px;
+                font-weight: 400;
+            }
+            .publicaciones-blog-home .todas-las-publicaciones-home {
+                background: #2BBCDE;
+                height: 100%;
+                width: 100%;
+                display: inline-block;
+                padding: 20px;
+                text-decoration: none;
+                border-radius: 3px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <div th:replace="fragments/header :: header"> </div>
+
+    <br/>
+    <br/>
+
+    <div class="row" style="margin: 5px">
+        <form th:action="@{/secure/feed/filter}" method="GET">
+            <div class="col-md-9" style="padding: 10px">
+
+                <div class="input-group col-md-8" style="padding: 10px">
+                    <input type="text" name="search" class="form-control input-lg" placeholder="Введите название задания.."/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+
+                <div >
+                    <input type="radio" name="filter" value="50" id="subscribed">
+                    <label for="subscribed">Отслеживаемые</label>
+
+                    <!--<input type="radio" name="filter" value="30" id="local">
+                    <label for="local">Подходящие</label>-->
+
+                    <input type="radio" name="filter" value="10" id="my">
+                    <label for="my">Мои</label>
+
+                    <!--<input type="radio" name="filter" value="40" id="chart">
+                    <label for="chart">Популярные</label>
+
+                    <input type="radio" name="filter" value="20" id="recent">
+                    <label for="recent">Свежие</label>-->
+
+                    <input type="radio" name="filter" value="0" id="all" checked>
+                    <label for="all">Все</label>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <section class="publicaciones-blog-home">
+
+            <form th:action="@{/secure/task/form}" method="GET">
+                <h2>Создать новое
+                    <button class="button">
+                        <span> Задание </span>
+                    </button>
+                </h2>
+            </form>
+
+            <!--<div> <span th:utext="${message}"></span> </div>-->
+
+            <div class="row-page row" th:if="${!tasks.isEmpty()}">
+                <div class="col-page col-sm-4 col-md-3" th:each="task : ${tasks}">
+
+                    <a th:href="@{'/secure/task/' + ${task.id}}" class="fondo-publicacion-home">
+                        <div class="img-publicacion-home">
+                            <div th:unless="${task.topicStarterId} == ${userId}">
+                                <img class="img-responsive" src="https://static-maps.yandex.ru/1.x/?lang=ru_RU&ll=30.315868%2C59.939095&l=map&size=520%2C440&z=11"
+                                     style="position: absolute; bottom: 85%">
+                            </div>
+
+                            <div th:if="${task.topicStarterId} == ${userId}"
+                                 style="background: #00C6FF; width: 100%; height: 100%;">
+
+                                <div style="position:absolute; top: 5px; right: 5px;">
+                                    <span class="glyphicon glyphicon-asterisk"
+                                          style="font-size: 32px; color: #2BBCDE; text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contenido-publicacion-home" style="padding-top: 10px">
+                            <h3 th:text="${task.theme}">
+                                <span></span>
+                            </h3>
+                            <p th:text="${task.descr}">
+                                <span></span>
+                            </p>
+                            <!--<p><span>...</span></p>-->
+                        </div>
+
+                        <div class="mascara-enlace-blog-home">
+                            <div>
+                                <form th:action="@{'/secure/task/' + ${task.id}}" method="GET">
+                                    <button class="btn btn btn-info" name="id" th:value="${task.id}" type="Submit">
+                                        <span> Читать </span>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div th:if="${task.topicStarterId} == ${userId}">
+                                <form th:action="@{/secure/task/form}" method="GET" style="padding: 10px">
+                                    <button class="btn btn btn-success" name="id" th:value="${task.id}" type="Submit">
+                                        <span>Обновить</span>
+                                    </button>
+                                </form>
+
+                                <form th:action="@{'/secure/task/' + ${task.id}}" th:method="DELETE"
+                                      style="padding: 2px">
+                                    <input type="hidden" name="_method" value="DELETE"/>
+                                    <button class="btn btn-danger" type="Submit">
+                                        <span>Удалить</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div th:if="${task?.modifyCount != null}" class="text-right"
+                             style="position:absolute; top: 4px; right: -3px ">
+                            <form th:action="@{/secure/task}" method="GET">
+                                <button class="btn btn-default btn-lg btn-link" style="font-size:22px"
+                                        name="id" th:value="${task.id}">
+                                    <span class="glyphicon glyphicon-bell" style="color: #00ABE3; text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;"></span>
+                                </button>
+                                <span class="badge badge-notify" th:text="${task.modifyCount}"></span>
+                            </form>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

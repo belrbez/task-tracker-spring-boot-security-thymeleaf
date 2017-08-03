@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html"/>
+    <title>Welcome</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <style th:inline="text">
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            color: #dddddd;
+
+            background-image: linear-gradient(to bottom, rgba(50,50,50,0.6) 0%,rgba(50,50,50,0.6) 100%), url("http://shoorick.ru/slide/uwdc/pic/cm-mc-style.png");
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+        }
+
+        .text-vertical-center {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .text-vertical-center h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 4.5em;
+            font-weight: 700;
+        }
+
+        .btn-dark {
+            border-radius: 0;
+            color: #fff;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .btn-dark:hover,
+        .btn-dark:focus,
+        .btn-dark:active {
+            color: #fff;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .btn-light {
+            border-radius: 0;
+            color: #333;
+            background-color: rgb(255,255,255);
+        }
+
+        .btn-light:hover,
+        .btn-light:focus,
+        .btn-light:active {
+            color: #333;
+            background-color: rgba(255,255,255,0.8);
+        }
+
+        hr.small {
+            max-width: 100px;
+        }
+
+        .sidebar-nav li {
+            text-indent: 20px;
+            line-height: 40px;
+        }
+
+        .sidebar-nav li a {
+            display: block;
+            text-decoration: none;
+            color: #999;
+        }
+
+        .sidebar-nav li a:hover {
+            text-decoration: none;
+            color: #fff;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .sidebar-nav li a:active,
+        .sidebar-nav li a:focus {
+            text-decoration: none;
+        }
+
+        .sidebar-nav {
+            height: 55px;
+            font-size: 18px;
+            line-height: 55px;
+        }
+
+        .sidebar-nav > .sidebar-brand a {
+            color: #999;
+        }
+
+        .sidebar-nav > .sidebar-brand a:hover {
+            color: #fff;
+            background: none;
+        }
+
+        .services {
+            padding: 50px 0;
+        }
+
+        .service-item {
+            margin-bottom: 30px;
+        }
+
+        .callout {
+            display: table;
+            width: 100%;
+            height: 400px;
+            color: #fff;
+            background: url(../img/callout.jpg) no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+
+        .call-to-action {
+            padding: 50px 0;
+        }
+
+        .call-to-action .btn {
+            margin: 10px;
+        }
+
+        @media(max-width:768px) {
+
+        }
+
+        .map iframe {
+            pointer-events: none;
+        }
+
+        footer {
+            padding: 100px 0;
+        }
+
+        #to-top {
+            display: none;
+            position: fixed;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        img {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header"> </div>
+
+    <br/>
+    <br/>
+
+
+    <!-- Services -->
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id="services" class="services bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h2>DTC</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <!--<i class="fa fa-cloud fa-stack-1x text-primary"></i>-->
+                                    <i class="fa fa-street-view fa-stack-1x text-primary"></i>
+                                </span>
+                                <h4>
+                                    <strong>Создай Своё задание!</strong>
+                                </h4>
+                                <p>Быстрое и качественное обслуживание!</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-compass fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>Отчет о проделанной работе</strong>
+                                </h4>
+                                <p>Будь в курсе процесса выполнения! </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <!--<i class="fa fa-flask fa-stack-1x text-primary"></i>-->
+                                    <!--<i class="fa fa-group fa-stack-1x text-primary"></i>-->
+                                    <!--<i class="fa fa-thumbs-up fa-stack-1x text-primary"></i>-->
+                                    <i class="fa fa-star-half-o fa-stack-1x text-primary"></i>
+                                </span>
+                                <h4>
+                                    <strong>Индивидуальный Подход</strong>
+                                </h4>
+                                <p>Уникальные возможности каждому клиенту!</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-shield fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>Гарантия</strong>
+                                </h4>
+                                <p>Поддержка и соответствование ТЗ!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Callout -->
+    <aside class="callout">
+        <div class="text-vertical-center">
+            <h1>Ваш универсальный помошник!</h1>
+        </div>
+    </aside>
+
+    <!-- Call to Action -->
+    <aside class="call-to-action bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3>Этим кнопкам невозможно сопротивляться.</h3>
+                    <a href="/register" class="btn btn-lg btn-light">Зарегистрироваться!</a>
+                    <a href="/login" class="btn btn-lg btn-dark">Войти!</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Project DTC</strong>
+                    </h4>
+                    <p><br>Still In Progress</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-envelope-o fa-fw"></i>
+                            <a href="mailto:keeper@io.com">devtrustcorp@yandex.ru</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
+                        </li>
+                    </ul>
+                    <hr class="small">
+                </div>
+            </div>
+        </div>
+        <a id="to-top" href="#top" class="btn btn-dark btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a>
+    </footer>
+</div>
+</body>
+</html>

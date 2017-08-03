@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html"/>
+    <title>Profile</title>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+</head>
+<body>
+    <div th:replace="fragments/header :: header"> </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="container">
+        <div class="row">
+            <form class="form-horizontal" th:action="@{/secure/profile}" method="POST"
+                  th:object="${user}" role="form">
+
+                <input type="hidden" th:field="${user.id}"/>
+
+                <fieldset>
+
+                    <legend>Ваш Аккаунт</legend>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="name_input">Ваш Логин</label>
+                        <div class="col-md-4">
+                            <input id="name_input" class="form-control input-md" type="text" th:field="*{ssoId}"
+                                   placeholder="Ваш Логин" />
+
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('ssoId')}" th:errors="*{ssoId}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="email_input">Ваш Email</label>
+                        <div class="col-md-4">
+                            <input id="email_input" class="form-control input-md" type="text" th:field="*{email}"
+                                   placeholder="Email" />
+
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="pass_input">Пароль</label>
+                        <div class="col-md-4">
+                            <input id="pass_input" class="form-control input-md" type="password" th:field="*{password}"
+                                   placeholder="Введите новый пароль" />
+
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="about_input">О себе</label>
+                        <div class="col-md-4">
+                            <input id="about_input" class="form-control input-md" type="text" th:field="*{about}"
+                                   placeholder="Опишите себя"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="firstName_input">Имя</label>
+                        <div class="col-md-4">
+                            <input id="firstName_input" class="form-control input-md" type="text" th:field="*{firstName}"
+                                   placeholder="Введите Имя"/>
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="lastName_input">Фамилия</label>
+                        <div class="col-md-4">
+                            <input id="lastName_input" class="form-control input-md" type="text" th:field="*{lastName}"
+                                   placeholder="Введите фамилию"/>
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group">
+                        <label class="col-md-4 control-label" for="notify_input">Оповещать</label>
+                        <div class="col-md-4">
+                            <input id="notify_input" class="form-control input-md" type="checkbox" th:checked="*{notified}"
+                                   placeholder="Оповещать меня об изменениях" />
+                        </div>
+                    </div>-->
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="phone_input">Телефон</label>
+                        <div class="col-md-4">
+                            <input id="phone_input" class="form-control input-md" type="text" th:field="*{phone}"
+                                   placeholder="Введите телефон"/>
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="city_input">Город</label>
+                        <div class="col-md-4">
+                            <input id="city_input" class="form-control input-md" type="text" th:field="*{city}"
+                                   placeholder="Введите город"/>
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="userProfileType_input">Тип профиля</label>
+                        <div class="col-md-4">
+                            <input id="userProfileType_input" class="form-control input-md" type="text" th:field="*{userProfileType}"
+                                   placeholder="Введите тип профиля"/>
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('userProfileType')}" th:errors="*{userProfileType}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="employeeRole_input">Тип работника</label>
+                        <div class="col-md-4">
+                            <input id="employeeRole_input" class="form-control input-md" type="text" th:field="*{employeeRole}"
+                                   placeholder="Введите тип работника"/>
+                            <span class="help-block">
+                                <label th:if="${#fields.hasErrors('employeeRole')}" th:errors="*{employeeRole}"
+                                       class="validation-message"></label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="button_input"></label>
+                        <div class="col-md-4">
+                            <span class="help-block">
+                                <span th:utext="${successMessage}"></span>
+                            </span>
+                            <button id="button_input" class="btn btn-primary" type="submit">Сохранить</button>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+            </form>
+
+
+        <!--<form th:action="@{/secure/profile}" method="POST"-->
+              <!--th:object="${user}" class="form-registration" role="form">-->
+
+            <!--<input type="hidden" th:field="${user.id}" />-->
+
+            <!--<div>-->
+                <!--<input type="text" th:field="*{name}" placeholder="Name" class="form-control" />-->
+                <!--<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-message"></label>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<input type="text" th:field="*{email}" placeholder="Email" class="form-control" />-->
+                <!--<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<input type="password" th:field="*{password}" placeholder="Password" class="form-control" />-->
+                <!--<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<input type="text" th:field="*{about}" placeholder="About" class="form-control" />-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span th:text="Notify"> </span>-->
+                <!--<input type="checkbox" th:checked="*{notified}" placeholder="Notified" class="form-control" />-->
+            <!--</div>-->
+
+            <!--<br/>-->
+            <!--<div>-->
+                <!--<button type="submit">Save</button>-->
+            <!--</div>-->
+            <!--<br/>-->
+
+            <!--<span th:utext="${successMessage}"></span>-->
+
+        <!--</form>-->
+        </div>
+    </div>
+</body>
+</html>

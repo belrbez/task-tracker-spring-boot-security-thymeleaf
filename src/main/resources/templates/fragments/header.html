@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
+
+<head>
+    <meta charset="UTF-8" content="text/html"/>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript"
+            src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+    <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">-->
+
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <div class="container">
+        <!--<nav class="navbar navbar-inverse navbar-fixed-top">-->
+            <!--<div class="container-fluid">-->
+                <div class="navbar-header">
+                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">-->
+                        <!--<span class="icon-bar"></span>-->
+                        <!--<span class="icon-bar"></span>-->
+                        <!--<span class="icon-bar"></span>-->
+                    <!--</button>-->
+                    <div id="wrapper-menus-but-block" style="display: none;">
+                        <a id="left-menu-toggle" style="cursor: pointer; /*background-color: #4060A5;*/background: rgba(71,107,184, 1);" class="menu-toggle nav-btn btn-dark btn-lg toggle">
+                            <i class="fa fa-list-ul" style="color:#f1f1f1;"></i>
+                        </a>
+                        <a id="right-menu-toggle" style="cursor: pointer; /*background-color: #4060A5;*/background: rgba(71,107,184, 1);" class="menu-toggle nav-btn btn-dark btn-lg toggle">
+                            <i class="fa fa-pencil-square-o" style="color:#f1f1f1;"></i>
+                        </a>
+                    </div>
+                    <a class="navbar-brand" href="/welcome">
+                        <span style="text-shadow: 0 0 3px #2BBCDE, 0 0 5px #2BBCDE; font-size: 26px; color: #e5e7e8">DTC</span>
+                        <!--<i class="fa fa-grav" aria-hidden="true"></i>-->
+                    </a>
+                </div>
+            <!--</div>-->
+        <!--</nav>-->
+
+        <div sec:authorize="!isAuthenticated()" class="">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/register" th:href="@{/register}">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"> </span> Зарегистрироваться</a>
+                </li>
+                <li>
+                    <a href="/login" th:href="@{/login}">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"> </span> Войти</a>
+                </li>
+            </ul>
+        </div>
+
+        <div sec:authorize="isAuthenticated()" class="">
+            <ul class="nav navbar-nav navbar-center">
+                <!--<li th:classappend="${module == 'map' ? 'active' : ''}">
+                    <a href="/secure/map" th:href="@{/secure/map}">
+                        <span class="glyphicon" aria-hidden="true"> </span> Карта
+                        <i class="fa fa-map-o" aria-hidden="true"></i>
+                    </a>
+                </li>-->
+
+                <li th:classappend="${module == 'feed' ? 'active' : ''}">
+                    <a href="/secure/feed" th:href="@{/secure/feed}">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"> </span> Лента</a>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li th:classappend="${module == 'profile' ? 'active' : ''}">
+                    <a href="/secure/profile" th:href="@{/secure/profile}">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"> </span> Аккаунт</a>
+                </li>
+                <li>
+                    <a href="/secure/logout" th:href="@{/secure/logout}" onclick="$('#form').submit();">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"> </span> Выйти </a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/secure/logout}"></form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
